@@ -1,0 +1,13 @@
+<aura:component access="global" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" controller="ControllerTest">
+<aura:attribute name="objeto" type="Account" default="{'Name':'Luiz'}"/>
+
+<!--<aura:registerEvent name="appEvent" type="c:TestEvent"/>-->
+
+<lightning:input aura:id="test" label="Name" value="{!v.objeto.Name}"/>
+<!--<lightning:input aura:id="test" label="Numero da conta" value="{!v.objeto.AccountNumber}"/>-->
+<lightning:button label="Enviar" onclick="{!c.enviar}"/>
+
+<!--<c:TestComponent2  objetoSegundoComponent="{!v.objeto}"/>-->
+<!--<c:TestComponent2/>-->
+
+</aura:component>

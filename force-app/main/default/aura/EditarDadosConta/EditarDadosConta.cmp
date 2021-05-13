@@ -1,0 +1,16 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" controller="EditarDadosContaControllerAPEX">
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+    <aura:attribute name="recordId" type="Id"/>
+    <aura:attribute name="conta" type="Account" required="true" default="{'sobjectType':'Account', 'Id':'', 'Name':'', 'AccountNumber': '', 'type': ''}"/>
+    <aura:attribute name="type" type="String[]" access="Public"/>
+    
+    <div class="slds-box slds-theme_default">
+      <form class="slds-formstacked">
+        <lightning:input aura:id="form" type="text" name="name" label="Name" value="{!v.conta.Name}" />
+        <lightning:input aura:id="form" type="text" name="AccountNumber" label="AccountNumber" value="{!v.conta.AccountNumber}" />      
+        <lightning:combobox class="slds-p-bottom_small" aura:id='form' name="Type" label="Type" value="{!v.conta.type}" placeholder="Select Progress" options="{!v.type}"/>
+        <lightning:button label="Salvar" title="Packed" onclick="{!c.salvarConta}"/>
+      </form>
+    </div>
+    
+</aura:component>

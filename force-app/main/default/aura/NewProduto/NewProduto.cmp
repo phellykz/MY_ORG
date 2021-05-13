@@ -1,0 +1,49 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction,lightning:actionOverride" access="global">
+    <div class="slds-box slds-theme_default">
+        <h1><b> Novo produto</b></h1>
+        <div class="slds-form">
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_5-of-12" style="margin-left: 5rem;">
+                    <div >
+                        <label class="slds-form-element__label" for="text-input-id-1">
+                        <abbr class="slds-required" title="required">* </abbr>Nome do Produto</label>
+                        <div class="slds-form-element__control" syte="margin-top: -1rem;">
+                            <lightning:input name="input3" placeholder="type here..."/>
+                        </div>                    
+                    </div>
+                </div> 
+                
+                <div class="slds-col slds-size_5-of-12" style="margin-left: 5rem;">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="text-input-id-1">
+                        <abbr class="slds-required" title="required">* </abbr>Código de barras</label>
+                        <div class="slds-form-element__control" syte="margin-top: -1rem;">
+                            <lightning:input name="input3" placeholder="type here..."/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-col slds-size_5-of-12" style="margin-left: 5rem;">
+                    <div >
+                        <label class="slds-form-element__label" for="text-input-id-1">
+                        <abbr class="slds-required" title="required">* </abbr>validade</label>
+                        <div class="slds-form-element__control" syte="margin-top: -1rem;">
+                            <lightning:input type="date" name="input1" />
+                        </div>                    
+                    </div>
+                </div> 
+                
+                <div class="slds-col slds-size_5-of-12" style="margin-left: 5rem;">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label" for="text-input-id-1">
+                        <abbr class="slds-required" title="required">* </abbr>Quantidade</label>
+                        <div class="slds-form-element__control" syte="margin-top: -1rem;">
+                            <lightning:input type="number" name="input1" />
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <lightning:button variant="success" label="Salvar" title="Salvar" onclick="{! c.foo }"/>
+        </div>
+    </div>
+</aura:component>

@@ -1,0 +1,148 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global" controller="exe01Carlos">
+    <aura:attribute name="form" type="Object"/>
+    <aura:attribute name="listCadastro" type="List"/>
+    <aura:attribute name="listContatos" type="List"/>
+    <aura:attribute name="showModal" type="Boolean" default="false"/> 
+    <aura:attribute name="contaSelecionada" type="String" default=""/> 
+    
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    
+    <div class="slds-box slds-theme_default">
+        
+        <div class="slds-grid slds-wrap slds-m-top_small">           
+            
+            
+            <div class="slds-col slds-size_1-of-4 slds-p-horizontal_medium">
+                <lightning:input name="razao" type="text" label="Razão Social" value="{!v.form.Name}"/>
+            </div>
+            <div class="slds-col slds-size_1-of-4 slds-p-horizontal_medium">
+                <lightning:input name="cnpj" type="text" label="CNPJ" value="{!v.form.CNPJ}" onchange="{!c.changeCNPJ}"/>
+            </div>          
+            <div class="slds-col slds-size_1-of-4 slds-p-horizontal_medium">
+                <lightning:input name="telefone" type="tel" label="Numero do Telefone" value="{!v.form.Phone}"/>
+            </div>
+        </div>
+        
+        <div class="slds-m-top_small">
+            <lightning:button variant="brand" onclick="{!c.insertRecord}" label="Cadastrar"/>
+        </div>
+        
+        <div class="slds-m-top_small">
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th class="" scope="col">
+                            <div class="slds-truncate">Contatos</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate">Nome</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate">CNPJ</div>
+                        </th>                       
+                        <th class="" scope="col">
+                            <div class="slds-truncate" >Telefone</div>
+                        </th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <aura:iteration items="{!v.listCadastro}" var="item">
+                        
+                        <tr class="slds-hint-parent">
+                            <td>
+                                <div class="slds-truncate" ><a data-index="{!item.recordId}" onclick="{!c.visulizarContato}">Ver contatos</a></div>
+                            </td>
+                            <td>
+                                <div class="slds-truncate" >{! item.Name}</div>
+                            </td>
+                            <td>
+                                <div class="slds-truncate" >{! item.CNPJ}</div>
+                            </td>                                
+                            <td>
+                                <div class="slds-truncate" >{! item.Phone}</div>
+                            </td>
+                            
+                        </tr>                        
+                        
+                    </aura:iteration>
+                    
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="{!(v.showModal)?'slds-modal slds-fade-in-open slds-show':'slds-modal slds-fade-in-open slds-hide'}">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.fecharContato}">
+                    <lightning:icon iconName="utility:close"/>
+                </button>
+                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Contatos</h2>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            
+                            <th class="" scope="col">
+                                <div class="slds-truncate">FirstName</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate">LastName</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate">CPF</div>
+                            </th>                       
+                            <th class="" scope="col">
+                                <div class="slds-truncate" >Email</div>
+                            </th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <aura:iteration items="{!v.listContatos}" var="item">
+                            
+                            <tr class="slds-hint-parent">
+                                
+                                <td>
+                                    <div class="slds-truncate" >
+                                        <lightning:input type="text" label="test" name="nome" value="{! item.FirstName}" variant="label-hidden"/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="slds-truncate" >
+                                        <lightning:input type="text" label="test" name="nome" value="{! item.LastName}" variant="label-hidden"/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="slds-truncate" >
+                                        <lightning:input type="text" label="test" name="{!item.recordId}" value="{! item.CPF}" variant="label-hidden" onchange="{!c.changeCPF}"/>
+                                    </div>
+                                </td>                                
+                                <td>
+                                    <div class="slds-truncate" >
+                                        <lightning:input type="email" label="test" name="email" value="{! item.Email}" variant="label-hidden"/>
+                                    </div>
+                                </td>
+                                
+                            </tr>                        
+                            
+                        </aura:iteration>
+                        
+                        
+                    </tbody>
+                </table>
+            </div>
+            <footer class="slds-modal__footer">
+                <button class="slds-button slds-button_neutral" onclick="{!c.fecharContato}">Cancelar</button>
+                <button class="slds-button slds-button_brand" onclick="{!c.addContato}">Adicionar Contato</button>
+                <button class="slds-button slds-button_brand" onclick="{!c.saveContact}">Salvar</button>
+            </footer>
+        </div>
+    </section>
+    <div class="{! (v.showModal)?'slds-backdrop slds-backdrop_open' : 'slds-backdrop'}"></div>
+</aura:component>

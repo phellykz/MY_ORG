@@ -1,0 +1,101 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:actionOverride" access="global" controller="ListFaturas" >
+    <aura:attribute name="form" type="Object"/>
+    <aura:attribute name="listFatura" type="List"/>
+    <aura:attribute name="openModal" type="boolean" default="false"/>
+    <aura:attribute name="fatura" type="String" default="Fatura__c" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="userInfo" type="user"/>
+    
+    <div class="slds-m-top_small">
+        
+        <button class="slds-button slds-button--brand" onclick="{!c.openModal}">Novo</button> 
+        
+        <aura:if isTrue="{!v.openModal}">
+            <div role="dialog" class="slds-modal slds-fade-in-open ">
+                <div class="slds-modal__container">
+                    <div class="slds-modal__header">
+                        <button class="slds-button slds-modal__close slds-button--icon-inverse" title="Close" onclick="{!c.closeModal}"> X
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h1 class="slds-text-heading--medium">Nova fatura</h1>
+                    </div>
+                    <div class="slds-modal__content slds-p-around--medium">
+                        <lightning:card>
+                            <div class="slds-p-left_large slds-p-right_medium">	
+                                <lightning:recordForm aura:id="recordViewForm" 
+                                                      objectApiName="{!v.fatura}"
+                                                      fields="Status__c,Valor__c,DatadeVencimento__c,DatadePagamento__c"
+                                                      columns="1"
+                                                      layoutType ="Full"
+                                                      mode="edit"
+                                                      onsuccess="{!c.onSuccess}"
+                                                      onerror="{!c.onError}"
+                                                      />
+                            </div>
+                        </lightning:card>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-backdrop slds-backdrop--open"></div>            
+        </aura:if>
+    </div>
+    
+    <div class="slds-m-top_small">
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                        <div class="slds-truncate">FaturaName</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate">Status</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate">Valor</div>
+                    </th>                       
+                    <th class="" scope="col">
+                        <div class="slds-truncate" >Data de Vencimento</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" >Data de Pagamento</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" >Pagar</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.listFatura}" var="item" indexVar="index">
+                    <tr class="slds-hint-parent">
+                        <td>
+                            <a onclick="{!c.openFatura}" data-index="{!index}">{!item.Name}</a>
+                        </td>
+                        <td>
+                            <div class="slds-truncate" >{! item.Status}</div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate" >{! item.Valor}</div>
+                        </td>                                
+                        <td>
+                            <div class="slds-truncate" >{! item.Vencimento}</div>
+                        </td>
+                        <td>
+                            <div class="slds-truncate" >{! item.Pagamento}</div>
+                        </td>
+                        <td>
+                            <aura:if isTrue="{!v.userInfo.UserType == 'Standard'}">
+                                <ui:inputCheckbox text="{!item.FaturaId}" aura:id="boxPack" value="" />                                
+                            </aura:if>
+                        </td>
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table>
+    </div> 
+    
+    <aura:if isTrue="{!v.userInfo.UserType == 'Standard'}">
+        <div class="slds-m-top_small">
+            <lightning:button variant="brand" onclick="{!c.updateFaturas}" label="Pagar"/>
+        </div>  
+    </aura:if>
+</aura:component>

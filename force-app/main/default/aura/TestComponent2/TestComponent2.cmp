@@ -1,0 +1,7 @@
+<aura:component access="global" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" >
+    <aura:attribute name="objetoSegundoComponent" type="Account" access="global" default="{'Name':''}"/>
+
+    <aura:handler event="c:TestEvent" action="{!c.handleApplicationEvent}"/>
+
+    <lightning:input aura:id="test" label="Name" value="{!v.objetoSegundoComponent.Name}"/>
+</aura:component>

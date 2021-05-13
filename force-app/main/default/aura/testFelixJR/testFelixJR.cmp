@@ -1,0 +1,4 @@
+<aura:component implements="flexipage:availableForAllPageTypes">
+    <aura:method name="exetuceGrandFather" action="{!c.exetuceGrandFather}"></aura:method>
+    <c:parentTest parent="{!this}"/>
+</aura:component>

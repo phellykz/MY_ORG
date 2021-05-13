@@ -1,0 +1,5 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global">
+    <aura:attribute name="parent" type="Aura.Component" access="public" />
+    <aura:method name="myMethod" action="{!c.myMethod}" />
+    <lightning:button variant="brand" label="Escravo01 =>>> Mestre" onclick="{!c.execMestre}"/>
+</aura:component>

@@ -1,0 +1,16 @@
+<!--
+  @File Name          : ShowImage.page
+  @Description        : 
+  @Author             : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Group              : 
+  @Last Modified By   : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Last Modified On   : 07/01/2020 12:39:10
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    07/01/2020   ChangeMeIn@UserSettingsUnder.SFDoc     Initial Version
+-->
+<apex:page >
+    <apex:image >
+        url="{!URLFOR($Resource.vfimagetest, 'cats/kitten1.jpg')}";
+    </apex:image>
+</apex:page>

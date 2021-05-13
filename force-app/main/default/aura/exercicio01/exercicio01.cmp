@@ -1,0 +1,117 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="formPF" type="Object"/>
+    <aura:attribute name="formPJ" type="Object"/>
+    <aura:attribute name="options" type="String[]" default="[
+                                                            { label: 'Pessoa Fisica', value: 'pf' },
+                                                            { label: 'Pessoa Juridica', value: 'pj' },]"/>
+    <aura:attribute name="pessoa" type="String" default=""/>
+    <aura:attribute name="listaPessoasFisicas" type="List"/>
+    <aura:attribute name="listaPessoasJuridicas" type="List"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <div class="slds-box slds-theme_default">
+        <lightning:radioGroup name="radioGroup"
+                              label="informe o tipo de cadastro:"
+                              options="{! v.options}"
+                              value="{! v.pessoa}"
+                              type="radio"/>
+    </div>
+    <div class="slds-box slds-theme_default">
+        <aura:if isTrue="{!v.pessoa=='pf'}">
+            <div class="row">
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning:input name="nome" label="Nome:" value="{!v.formPF.nome}"/>
+                    <lightning:input type="date" name="nascimento" label="Data de nascimento:" value="{!v.formPF.nascimento}"/>
+                    <lightning:input name="cpf" type="text" required="true" value="{!v.formPF.cpf}" label="CPF:" pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}" maxlength="14"/>
+                    <lightning:input type="email" name="email" label="Email:" value="{!v.formPF.email}"/>
+                    <lightning:button variant="brand" label="Cadastrar" onclick="{! c.cadastrarPF }"/>
+                </div>
+            </div>
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Nome">Nome</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="CPF">CPF</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Data Nascimento">Data Nascimento</div>
+                        </th> 
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Email">Email</div>
+                        </th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    <aura:iteration items="{!v.listaPessoasFisicas}" var="item">
+                        <tr class="slds-hint-parent">
+                            <th data-label="Nome" scope="row">
+                                <div class="slds-truncate" title="Cloudhub">{!item.nome}</div>
+                            </th>
+                            <td data-label="CPF">
+                                <div class="slds-truncate" title="Cloudhub">{!item.cpf}</div>
+                            </td>
+                            <td data-label="Data de nascimento">
+                                <div class="slds-truncate" title="Cloudhub">{!item.nascimento}</div>
+                            </td>
+                            <td data-label="Email">
+                                <div class="slds-truncate" title="Cloudhub">{!item.email}</div>
+                            </td>
+                        </tr>
+                    </aura:iteration>
+                </tbody>
+            </table>
+        </aura:if>
+        <aura:if isTrue="{!v.pessoa=='pj'}">
+            <div class="row">
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning:input name="razaoSocial" label="RAZÃO SOCIAL:" value="{!v.formPJ.razaoSocial}"/>
+                    <lightning:input name="cnpj" type="text" required="true" value="{!v.formPJ.cnpj}" label="CNPJ:" pattern="[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}" maxlength="14"/>
+                    <lightning:input type="date" name="abertura" label="Data de abertura:" value="{!v.formPJ.abertura}"/>
+                    <lightning:input type="text" name="telefone" label="Telefone:" value="{!v.formPJ.telefone}"/>
+                    <lightning:button variant="brand" label="Cadastrar" onclick="{! c.cadastrarPJ }"/>
+                </div>
+            </div>
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="RAZÃO SOCIAL">RAZÃO SOCIAL</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="CNPJ">CNPJ</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Data de abertura">Data de abertura</div>
+                        </th> 
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Telefone">Telefone</div>
+                        </th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    <aura:iteration items="{!v.listaPessoasJuridicas}" var="item">
+                        <tr class="slds-hint-parent">
+                            <th data-label="RAZÃO SOCIAL" scope="row">
+                                <div class="slds-truncate" title="Cloudhub">{!item.razaoSocial}</div>
+                            </th>
+                            <td data-label="CNPJ">
+                                <div class="slds-truncate" title="Cloudhub">{!item.cnpj}</div>
+                            </td>
+                            <td data-label="Data de abertura">
+                                <div class="slds-truncate" title="Cloudhub">{!item.abertura}</div>
+                            </td>
+                            <td data-label="Telefone">
+                                <div class="slds-truncate" title="Cloudhub">{!item.telefone}</div>
+                            </td>
+                        </tr>
+                    </aura:iteration>
+                </tbody>
+            </table>
+        </aura:if>
+    </div>
+    
+</aura:component>

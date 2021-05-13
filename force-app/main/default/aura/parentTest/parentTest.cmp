@@ -1,0 +1,13 @@
+<aura:component implements="flexipage:availableForAllPageTypes">
+    <aura:attribute name="parent" type="Aura.Component" access="public" />
+    <aura:method name="paiTest" action="{!c.paiTest}"/>
+    <div class="slds-box slds-theme_default">
+        <h1>Test Parent</h1>
+            <c:childTest
+                aura:id="testID" parent="{!this}"
+            />
+        <lightning:button variant="destructive" label="Executar method filho" title="Destructive action" onclick="{!c.execFilho}"/>
+        <lightning:button variant="brand-outline" label="Component event" title="Brand action" onclick="" />
+        <lightning:button variant="destructive-text" label="Aplication event" title="Destructive action" onclick=""/>
+    </div>
+</aura:component>

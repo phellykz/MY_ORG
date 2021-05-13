@@ -1,0 +1,6 @@
+<aura:component>
+    <aura:attribute name="parent" type="Aura.Component" access="public" />
+    <aura:method name="executarFilho" action="{!c.executarFilho}" access="public"></aura:method>
+    <H2>ChildTest</H2>
+    <button class="slds-button slds-button_brand" onclick="{!c.myAction}">Brand Button</button>
+</aura:component>

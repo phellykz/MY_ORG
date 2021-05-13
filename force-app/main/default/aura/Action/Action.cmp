@@ -1,0 +1,25 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction,lightning:actionOverride" access="global" >
+    <aura:attribute name="form" type="Action__c"/>
+    <aura:attribute name="listRequesties" type="List"/>
+    <aura:attribute name="listActions" type="List"/>
+    <aura:attribute name="showModal" type="Boolean" default="false"/>
+    <aura:attribute name="Action" type="String" default="Action__c" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <lightning:card iconName="custom:custom19" title="lightning:recordForm">
+        <div class="slds-p-left_large slds-p-right_medium">	
+            <lightning:recordForm aura:id="recordViewForm" 
+                                  objectApiName="{!v.Action}"
+                                  fields="Request__c,Date__c,Responsible__c,New_Status__c,Description__c"
+                                  columns="2"
+                                  layoutType ="Full"
+                                  mode="edit"
+                                  onsuccess="{!c.onSuccess}"
+                                  onsubmit="{!c.onSubmit}"
+                                  onload="{!c.onLoad}"
+                                  onerror="{!c.onError}"
+                                  />
+        </div>
+    </lightning:card>
+</aura:component>
